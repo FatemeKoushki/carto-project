@@ -4,7 +4,21 @@ import Product from './cardProduct'
 import useEmblaCarousel from 'embla-carousel-react'
 import "./embla.css"
 import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from 'react-icons/md'
-import { ProductsProps } from '@/components/home/specialOffers/offersProduct'
+
+type Product = {
+  name:string ,
+  image:string ,
+  id:number ,
+  price:number ,
+  discount : string,
+  memory : string,
+  brand : string
+}
+interface ProductsProps {
+  products: Product[]
+}
+
+
 export default function ProdutsSection({products }:ProductsProps) {
 
   const [emblaRef, emblaApi] = useEmblaCarousel(

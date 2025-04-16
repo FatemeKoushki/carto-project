@@ -9,6 +9,7 @@
 }
 
 .embla__container {
+  width: 100%;
   display: flex;
   justify-content: start;
   align-items: center;
@@ -19,15 +20,15 @@
 
 .embla__slide {
 
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  flex: 0 0 calc(25% - 15px); /* هر اسلاید 25% از عرض کانتینر باشد */
+   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  flex: 0 0 calc(25% - 15px); 
   min-width: 0;
   background-color: #fff;
   border-radius: 8px;
   padding: 1px;
   text-align: center;
   justify-content: center;
-  transition: transform 0.3s ease; /* انیمیشن هاور */
+  transition: transform 0.3s ease; 
 }
 
 /* Responsive Design */

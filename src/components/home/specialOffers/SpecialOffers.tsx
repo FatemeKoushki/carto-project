@@ -1,18 +1,16 @@
+"use client"
 import React from 'react'
 import { MdKeyboardArrowRight } from "react-icons/md";
-
-import ProdutsOffers, { Product } from './offersProduct';
+import { useSpecialOffersProductas } from '@/api/specialOffers/specialOffersHook';
+import ProdutsOffers from './offersProduct';
 import Link from 'next/link';
 export default  function SpecialOffers() {
-  const specialProducts:Product[] = [
-    {name : "آیفون 14 پلاس"  ,img : "/assets/phone1.png" , id:1 ,price : "1000000000" , discount : "10"},
-    {name : "آیفون 14 پلاس"  ,img : "/assets/phone2.png" , id:2 ,price : "9000000000" , discount : "15"},
-    {name : "آیفون 14 پلاس"  ,img: "/assets/phone3.png"  , id:2 ,price : "9000000000", discount : "10"},
-    {name : "آیفون 14 پلاس"  ,img : "/assets/phone4.png" , id:4 ,price : "9000000000" , discount : "15"},
-    // {name : "iphone"  ,img : {phone5} , id:5 ,price : "1000000000" , discount : "15"},
-    // {name : "iphone"  ,img : {phone6} , id:6 ,price : "9000000000" , discount : "10"}
+  const { data, isLoading, isError } = useSpecialOffersProductas()
+ 
 
-  ]
+  if(isLoading) return <p>در حال بارگذاری...</p>
+  if(isError) return <p>خطا در دریافت محصولات!</p>
+
   return (
     <div className=' mt-4 flex justify-center items-center overflow-x-auto'>
     <div className='bg-primary w-[94%] h-full rounded-lg mx-auto text-center p-4 md:p-0  '>
@@ -29,7 +27,7 @@ export default  function SpecialOffers() {
         </div>
       </div>
     <div className='flex justify-center items-center'>
-    <ProdutsOffers  products={specialProducts}  />
+    <ProdutsOffers  products={data}  />
     </div>
      
     </div>

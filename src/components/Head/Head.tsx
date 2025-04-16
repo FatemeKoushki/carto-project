@@ -1,16 +1,14 @@
 "use client";
 import Link from "next/link";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import { AiOutlineMenu } from "react-icons/ai";
 import { LuShoppingCart } from "react-icons/lu";
 import { IoClose } from "react-icons/io5";
+import SearchBox from "../../components/searchBox/searchbox";
+
 export default function Head() {
   const [open, setOpen] = useState(false);
-  
- 
-// console.log(userInfo)
-
 
   return (
     <div className="flex justify-center ">
@@ -18,7 +16,7 @@ export default function Head() {
       {/* mobile  */}
         <div
           className={`md:hidden transition-all duration-300   ease-in   ${open ? "translate-x-[0px]" : "translate-x-[800px]"
-            } bg-[#F6F7F9] p-4  z-50 absolute h-screen  w-full  `}
+            } bg-white/95 p-4  z-50 absolute h-screen  w-full  `}
         >
           <div className="flex justify-end ">
             <IoClose onClick={() => setOpen(!open)} size={20} />
@@ -49,7 +47,7 @@ export default function Head() {
             </div>
         </div>
           {/* desktop */}
-        <div className="w-full md:w-[90%] text-center md:mt-3 h-10 flex justify-between items-center !bg-white   overflow-hidden rounded-lg  md:top-4  md:p-6 ">
+        <div className="w-full md:w-[90%] text-center md:mt-3 h-10 flex justify-between items-center bg-white/95 shadow-md   overflow-hidden rounded-lg  md:top-4  md:p-6 ">
         <div className="mx-2 flex md:hidden items-center gap-2  ">
           
             <AiOutlineMenu
@@ -67,16 +65,7 @@ export default function Head() {
             <FiSearch size={20} className="md:hidden" />
             <h2 className="font-bold text-xl lg:text-2xl text-[#597EF7]">کارتو</h2>
 
-            <div className="hidden md:flex  justify-center items-center border  rounded-lg   h-8  text-center">
-              <input
-                type="text"
-                className="outline-0 focus:outline-0 mx-2 "
-                placeholder="جستجو کنید"
-              />
-              <div className="bg-primary flex justify-center items-center h-8 rounded-lg w-8  cursor-pointer ">
-                <FiSearch size={15} className="text-slate-100" />
-              </div>
-            </div>
+            <SearchBox />
           </div>
 
         

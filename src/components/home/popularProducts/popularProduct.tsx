@@ -2,26 +2,21 @@
 import ProdutsSection from '@/components/ui/main/produtsSection'
 import React from 'react'
 import { MdKeyboardArrowRight } from 'react-icons/md'
-import { Product } from '../specialOffers/offersProduct'
-
+import { usePopularProducts } from '@/api/popularProducts/popularProductsHook'
 function PopularProducts() {
-  const specialProducts:Product[] = [
-     {name : "آیفون 14 پلاس"  ,img : "/assets/phone1.png" , id:1 ,price : "1000000000" , discount : "10"},
-     {name : "آیفون 14 پلاس"  ,img : "/assets/phone2.png" , id:2 ,price : "9000000000" , discount : "15"},
-     {name : "آیفون 14 پلاس"  ,img: "/assets/phone3.png" , id:3 , price : "9000000000", discount : "10"},
-     {name : "آیفون 14 پلاس"  ,img : "/assets/phone4.png" , id:4 ,price : "9000000000" , discount : "15"},
-     {name : "آیفون 14 پلاس"  ,img : "/assets/phone1.png" , id:10 ,price : "1000000000" , discount : "10"},
-     {name : "آیفون 14 پلاس"  ,img : "/assets/phone2.png" , id:6 ,price : "9000000000" , discount : "15"},
-     {name : "آیفون 14 پلاس"  ,img: "/assets/phone3.png" , id:7 ,price : "9000000000", discount : "10"},
-     {name : "آیفون 14 پلاس"  ,img : "/assets/phone4.png" , id:9 ,price : "9000000000" , discount : "15"},
-     // {name : "iphone"  ,img : {phone5} , id:5 ,price : "1000000000" , discount : "15"},
-     // {name : "iphone"  ,img : {phone6} , id:6 ,price : "9000000000" , discount : "10"}
- 
-   ]
+  const { data, isLoading, isError } = usePopularProducts()
 
+  // const dummyProducts = [
+  //   {id : 1 , name: 'Iphone 15 pro max', price: 989850, image: '/assets/iphones.png', brand: 'Apple', memory: '512GB'  , discount : "10" },
+  //   {id : 2 , name: 'Galaxy S24+', price: 989910, oldPrice: 999910, image: '/assets/phone1.png', brand: 'Samsung', memory: '256GB' , discount : "10" },
+  //   {id : 3 , name: 'Galaxy Note 12', price: 989910, image: '/assets/phone2.png', brand: 'Samsung', memory: '128GB' , discount : "10" },
+  //   {id : 4 , name: 'Galaxy S10', price: 989910, image: '/assets/phone3.png', brand: 'Samsung', memory: '64GB' , discount : "10" },
+  //   {id : 5 , name: 'iPhone 13 mini', price: 989910, image: '/assets/phone4.png', brand: 'Apple', memory: '128GB' , discount : "10" },
+  //   {id : 6 , name: 'Mi 11 Lite', price: 989910, image: '/assets/phone5.png', brand: 'Xiaomi', memory: '128GB' , discount : "10" },
+  // ]
 
-
-
+if(isLoading) return <p>در حال بارگذاری...</p>
+if(isError) return <p>خطا در دریافت محصولات!</p>
 
    return (
      <div className='h-full  mt-8  mx-auto text-center '>
@@ -39,10 +34,8 @@ function PopularProducts() {
          </div>
        </div>
       <div className='w-full flex justify-center items-center' >
-      <ProdutsSection  products={specialProducts}  />
+      <ProdutsSection  products={data}  />
       </div>
-      
-      
      </div>
    </div>
    

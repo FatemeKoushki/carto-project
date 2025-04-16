@@ -6,12 +6,14 @@ import "../../ui/main/embla.css" ;
 import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from 'react-icons/md'
 import Product from '@/components/ui/main/cardProduct'
 
-export type Product = {
-    name:string ,
-    img:string ,
-    id:number ,
-    price:string ,
-    discount : string
+type Product = {
+  name:string ,
+  image:string ,
+  id:number ,
+  price:number ,
+  discount : string,
+  memory : string,
+  brand : string
 }
 export interface ProductsProps {  
   products: Product[];  

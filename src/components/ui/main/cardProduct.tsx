@@ -6,10 +6,12 @@ import { BiHeart } from "react-icons/bi";
 export type PruductType = {
   product:{
     name:string ,
-    img:string ,
+    image:string ,
     id:number ,
-    price:string ,
-    discount : string
+    price:number ,
+    discount : string,
+    memory : string,
+    brand : string
   }
 
 
@@ -21,11 +23,11 @@ export default function Product({product}:PruductType) {
  
  
   return (
-    <div className=' w-[300px] lg:w-[260px] h-[18rem] lg:h-[19rem] bg-white rounded-lg text-center ' >
+    <div className=' w-[300px] lg:w-[260px] h-[18rem] lg:h-[19rem] bg-white rounded-lg text-center  ' >
         <BiHeart  size={25} className='m-1 text-[#ADC6FF]  cursor-pointer ml-0 '/>
 
       <div className='img ' >
-        <div className="flex justify-center items-center"> <Image  src={product?.img} alt='product' width={100} height={100} className='text-center  w-56 h-40 object-contain' /></div>
+        <div className="flex justify-center items-center"> <Image  src={product?.image} alt='product' width={100} height={100} className='text-center  w-56 h-40 object-contain' /></div>
        
       </div>
       <div className='title flex justify-between items-center p-1 mt-1' >

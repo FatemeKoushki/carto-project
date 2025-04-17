@@ -2,6 +2,8 @@
 import { useFilterStore } from '../hooks/useFilters'
 import { useState, useEffect } from 'react'
 import { useUrlFilters } from '@/utils/urlFilters'
+import Slider from 'rc-slider'
+import 'rc-slider/assets/index.css'
 
 const brands = ['Apple', 'Samsung', 'Xiaomi', 'Sony', 'Motorola', 'Nokia', 'LG']
 const memories = ['1TB', '512GB', '256GB', '128GB', '64GB', '32GB']
@@ -106,94 +108,65 @@ export default function FilterSidebar({ onFilterSelect }: FilterSidebarProps) {
     onFilterSelect?.()
   }
 
+  const toPersianNumber = (number: number): string => {
+    if (number == null) return '';
+
+  const persianDigits = '۰۱۲۳۴۵۶۷۸۹';
+  
+  // تبدیل عدد به رشته و اضافه‌کردن جداکننده سه‌رقمی
+  const parts = number
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, '٬') // استفاده از "٬" جداکننده فارسی
+    .split('');
+
+  // تبدیل ارقام به فارسی
+  return parts
+    .map((char) => (/\d/.test(char) ? persianDigits[char] : char))
+    .join('');
+  }
+
   return (
     <div className="bg-white p-4 rounded shadow space-y-6">
       <div>
-        <h4 className="font-semibold mb-2">Price</h4>
+        <h4 className="font-semibold mb-2">قیمت (تومان)</h4>
         <div className="flex flex-col gap-2">
           <div className="flex justify-between">
-            <span>Min: {localPrice[0]}</span>
-            <span>Max: {localPrice[1]}</span>
+            <span>حداقل: {toPersianNumber(localPrice[0])}</span>
+            <span>حداکثر: {toPersianNumber(localPrice[1])}</span>
           </div>
-          <div className="relative w-full h-6">
-            <input
-              type="range"
+          <div className="px-2" style={{ direction: 'rtl' }}>
+            <Slider
+              range
               min={0}
-              max={1000000}
-              value={localPrice[0]}
-              onChange={(e) => {
-                const minValue = parseInt(e.target.value)
-                if (minValue <= localPrice[1]) {
-                  handlePriceChange([minValue, localPrice[1]])
+              max={100000000}
+              value={localPrice}
+              onChange={(value) => {
+                if (Array.isArray(value)) {
+                  handlePriceChange(value as [number, number])
                 }
               }}
-              className="absolute w-full appearance-none bg-transparent pointer-events-none"
-            />
-            <input
-              type="range"
-              min={0}
-              max={1000000}
-              value={localPrice[1]}
-              onChange={(e) => {
-                const maxValue = parseInt(e.target.value)
-                if (maxValue >= localPrice[0]) {
-                  handlePriceChange([localPrice[0], maxValue])
-                }
+              allowCross={false}
+              railStyle={{ backgroundColor: '#e5e7eb', height: '4px' }}
+              trackStyle={[{ backgroundColor: 'var(--primary)', height: '4px' }]}
+              marks={{
+                0: <span className="text-xs">{toPersianNumber(0)}</span>,
+                30000000: <span className="text-[10px]">{toPersianNumber(30000000)}</span>,
+                50000000: <span className="text-[10px]">{toPersianNumber(50000000)}</span>,
+                75000000: <span className="text-[10px]">{toPersianNumber(7500000)}</span>,
+                100000000: <span className="text-[10px]">{toPersianNumber(100000000)}</span>
               }}
-              className="absolute w-full appearance-none bg-transparent pointer-events-none"
+              step={1000000}
+              reverse
             />
-            <div className="absolute w-full h-1 bg-gray-200 rounded top-1/2 -translate-y-1/2"></div>
-            <div 
-              className="absolute h-1 bg-primary rounded top-1/2 -translate-y-1/2"
-              style={{
-                left: `${(localPrice[0] / 1000000) * 100}%`,
-                right: `${100 - (localPrice[1] / 1000000) * 100}%`
-              }}
-            ></div>
-            <div 
-              className="absolute w-4 h-4 bg-primary rounded-full top-1/2 -translate-y-1/2 cursor-pointer"
-              style={{ left: `${(localPrice[0] / 1000000) * 100}%` }}
-            ></div>
-            <div 
-              className="absolute w-4 h-4 bg-primary rounded-full top-1/2 -translate-y-1/2 cursor-pointer"
-              style={{ left: `${(localPrice[1] / 1000000) * 100}%` }}
-            ></div>
           </div>
-        </div>
-        <div className="flex gap-4 mt-2">
-          <input
-            type="number"
-            value={localPrice[0]}
-            onChange={(e) => {
-              const minValue = parseInt(e.target.value) || 0;
-              if (minValue <= localPrice[1]) {
-                handlePriceChange([minValue, localPrice[1]]);
-              }
-            }}
-            className="w-24 border rounded px-2 py-1"
-            min={0}
-          />
-          <span>to</span>
-          <input
-            type="number"
-            value={localPrice[1]}
-            onChange={(e) => {
-              const maxValue = parseInt(e.target.value) || 0;
-              if (maxValue >= localPrice[0]) {
-                handlePriceChange([localPrice[0], maxValue]);
-              }
-            }}
-            className="w-24 border rounded px-2 py-1"
-            min={0}
-          />
         </div>
       </div>
 
       <div>
-        <h4 className="font-semibold mb-2">Brands</h4>
+        <h4 className="font-semibold mb-2">برندها</h4>
         <input
           type="text"
-          placeholder="search brands"
+          placeholder="جستجوی برند"
           className="mb-2 w-full border rounded px-2 py-1"
         />
         {brands.map(brand => (
@@ -209,7 +182,7 @@ export default function FilterSidebar({ onFilterSelect }: FilterSidebarProps) {
       </div>
 
       <div>
-        <h4 className="font-semibold mb-2">Memory</h4>
+        <h4 className="font-semibold mb-2">حافظه</h4>
         {memories.map(mem => (
           <label key={mem} className="block">
             <input

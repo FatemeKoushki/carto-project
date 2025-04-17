@@ -40,13 +40,13 @@ export default function SearchPage() {
           <div>
             <h2 className="text-xl font-semibold">
               {filters.search 
-                ? `Search results for "${filters.search}"` 
-                : "Search results"}
+                ? `نتیجه جستجوی  برای :"${filters.search}"` 
+                : "نتایج جستجو "}
             </h2>
             <p className="text-gray-500">
               {Object.keys(filters).length > 0 
-                ? "Filtered products" 
-                : "All products"}
+                ? "محصولات فیلتر شده" 
+                : "همه محصولات"}
             </p>
           </div>
           <SortDropdown onSortChange={handleSortChange} currentSort={filters.sort} />

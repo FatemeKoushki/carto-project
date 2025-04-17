@@ -1,103 +1,103 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
-import { FiSearch } from "react-icons/fi";
-import { AiOutlineMenu } from "react-icons/ai";
-import { LuShoppingCart } from "react-icons/lu";
-import { IoClose } from "react-icons/io5";
-import SearchBox from "../../components/searchBox/searchbox";
+import { FiMenu, FiX, FiShoppingCart, FiUser, FiHeart } from "react-icons/fi";
+import { useState } from "react";
+import SearchBox from "../searchBox/searchBox";
 
 export default function Head() {
-  const [open, setOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div className="flex justify-center ">
-      <div className=" flex justify-center relative z-50 md:fixed w-full md:w-[88%]  h-10 mx-auto ">
-      {/* mobile  */}
-        <div
-          className={`md:hidden transition-all duration-300   ease-in   ${open ? "translate-x-[0px]" : "translate-x-[800px]"
-            } bg-white/95 p-4  z-50 absolute h-screen  w-full  `}
-        >
-          <div className="flex justify-end ">
-            <IoClose onClick={() => setOpen(!open)} size={20} />
-          </div>
-          
-          <div className="  flex flex-col gap-6  items-start text-black text-lg font-bold mt-4 ">
-            <Link onClick={()=>setOpen(!open) } className="ml-4" href={"/"}>
-              خانه
+    <header className="bg-white shadow-sm sticky top-0 z-50">
+      <div className="container mx-auto px-4 py-3">
+        <div className="flex items-center justify-between">
+          {/* Mobile menu button */}
+          <button
+            className="md:hidden text-gray-700 hover:text-primary"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+          </button>
+
+          {/* Logo */}
+          <Link href="/" className="text-2xl font-bold text-primary">
+            کارتو
+          </Link>
+
+          {/* Desktop navigation */}
+          <nav className="hidden md:flex items-center space-x-8 space-x-reverse">
+            <Link href="/" className="text-gray-700 hover:text-primary">
+              صفحه اصلی
             </Link>
-            <Link onClick={()=>setOpen(!open)} className="ml-4" href={"/"}>
+            <Link href="/products" className="text-gray-700 hover:text-primary">
               محصولات
             </Link>
-            <Link onClick={()=>setOpen(!open)} className="ml-4" href={"/"}>
+            <Link href="/about" className="text-gray-700 hover:text-primary">
               درباره ما
             </Link>
-            <Link onClick={()=>setOpen(!open)} className="ml-4" href={"/"}>
-              {" "}
-              ارتباط با ما
+            <Link href="/contact" className="text-gray-700 hover:text-primary">
+              تماس با ما
             </Link>
-          </div>
-          <div className="flex flex-col justify-center items-center gap-4 text-center mt-12" >
-              <Link onClick={()=>setOpen(!open)} href={"/"} className="border flex justify-center items-center  text-xl border-primary w-full h-12 rounded-lg bg-primary text-slate-50">
-                ثبت نام
-              </Link>
-              <Link onClick={()=>setOpen(!open)} href={"/"} className="border text-center flex justify-center items-center  text-xl border-primary w-full h-12 rounded-lg text-primary">
-                ورود
-              </Link>
-            </div>
-        </div>
-          {/* desktop */}
-        <div className="w-full md:w-[90%] text-center md:mt-3 h-10 flex justify-between items-center bg-white/95 shadow-md   overflow-hidden rounded-lg  md:top-4  md:p-6 ">
-        <div className="mx-2 flex md:hidden items-center gap-2  ">
-          
-            <AiOutlineMenu
-              size={20}
-              className="md:hidden"
-              onClick={() => setOpen(!open)}
-            />
-            <div className="md:hidden">
-              <LuShoppingCart size={20} />
-            </div>
-          
-          
-          </div>
-        <div className=" mx-2 flex items-center gap-3 ">
-            <FiSearch size={20} className="md:hidden" />
-            <h2 className="font-bold text-xl lg:text-2xl text-[#597EF7]">کارتو</h2>
+          </nav>
 
+          {/* Search box - visible on both mobile and desktop */}
+          <div className="flex-1 max-w-md mx-4">
             <SearchBox />
           </div>
 
-        
-          <div className="hidden md:flex gap-3 text-neutral-900 lg:text-lg  ">
-            <Link className="hover:text-primary text-sm lg:text-base transition-all duration-300 ease-in focus:text-primary" href={"/"}>خانه</Link>
-            <Link className="hover:text-primary text-sm lg:text-base transition-all duration-300 ease-in focus:text-primary" href={"/"}>محصولات</Link>
-            <Link className="hover:text-primary text-sm lg:text-base transition-all duration-300 ease-in focus:text-primary" href={"/"}> ارتباط با ما</Link>
-            <Link className="hover:text-primary text-sm lg:text-base transition-all duration-300 ease-in focus:text-primary" href={"/"}>درباره ما</Link>
+          {/* Icons */}
+          <div className="flex items-center space-x-4 space-x-reverse">
+            <Link href="/cart" className="text-gray-700 hover:text-primary relative">
+              <FiShoppingCart size={20} />
+              <span className="absolute -top-2 -right-2 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                0
+              </span>
+            </Link>
+            <Link href="/wishlist" className="text-gray-700 hover:text-primary">
+              <FiHeart size={20} />
+            </Link>
+            <Link href="/account" className="text-gray-700 hover:text-primary">
+              <FiUser size={20} />
+            </Link>
           </div>
-
-        
-          <div className="hidden md:flex gap-3 ">
-              
-                <>
-                  
-                  <Link
-                    href={"/"}
-                    className="border flex justify-center items-center  hover:bg-primary hover:text-white border-primary w-12 lg:w-16 h-8 text-sm lg:text-base rounded-lg text-primary"
-                  >
-                    ورود
-                  </Link>
-                  <Link
-                    href={"/"}
-                    className="border flex justify-center items-center border-primary w-12 lg:w-16 h-8 rounded-lg bg-primary whitespace-nowrap text-sm lg:text-base text-slate-50"
-                  >
-                    ثبت نام
-                  </Link>
-                </>
-            
-            </div>
         </div>
+
+        {/* Mobile menu */}
+        {isMenuOpen && (
+          <nav className="md:hidden mt-4 pb-4">
+            <div className="flex flex-col space-y-4">
+              <Link 
+                href="/" 
+                className="text-gray-700 hover:text-primary py-2"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                صفحه اصلی
+              </Link>
+              <Link 
+                href="/products" 
+                className="text-gray-700 hover:text-primary py-2"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                محصولات
+              </Link>
+              <Link 
+                href="/about" 
+                className="text-gray-700 hover:text-primary py-2"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                درباره ما
+              </Link>
+              <Link 
+                href="/contact" 
+                className="text-gray-700 hover:text-primary py-2"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                تماس با ما
+              </Link>
+            </div>
+          </nav>
+        )}
       </div>
-    </div>
+    </header>
   );
 }

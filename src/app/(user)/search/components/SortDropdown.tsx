@@ -13,12 +13,12 @@ export default function SortDropdown({ onSortChange, currentSort }: SortDropdown
   return (
     <select 
       className="border px-2 py-1 rounded"
-      value={currentSort || 'name'}
+      value={currentSort || 'featured'}
       onChange={handleChange}
     >
-      <option value="name">Sort by name</option>
-      <option value="price-low">Price low to high</option>
-      <option value="price-high">Price high to low</option>
+      <option value="newest">جدیدترین ها</option>
+      <option value="price-low">قیمت: کم به زیاد</option>
+      <option value="price-high">قیمت: زیاد به کم</option>
     </select>
   )
 }

@@ -2,7 +2,6 @@
 import { useState, useEffect, useRef } from "react";
 import { FiSearch } from "react-icons/fi";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import Image from "next/image";
 
 interface Product {
@@ -89,11 +88,11 @@ export default function SearchBox() {
   };
 
   return (
-    <div ref={searchRef} className="relative">
-      <form onSubmit={handleSearch} className="hidden md:flex justify-center items-center border rounded-lg h-8 text-center">
+    <div ref={searchRef} className="relative w-full max-w-md">
+      <form onSubmit={handleSearch} className="flex justify-center items-center border rounded-lg h-8 text-center w-full">
         <input
           type="text"
-          className="outline-0 focus:outline-0 mx-2 bg-transparent"
+          className="outline-0 focus:outline-0 mx-2 bg-transparent w-full"
           placeholder="جستجو کنید"
           value={searchQuery}
           onChange={(e) => {
@@ -112,18 +111,18 @@ export default function SearchBox() {
 
       {/* Suggestions dropdown */}
       {showSuggestions && (searchQuery.trim().length > 0 || suggestions.length > 0) && (
-        <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto">
+        <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-xl z-50 max-h-96 overflow-y-auto border border-gray-200">
           {isLoading ? (
-            <div className="p-4 text-center text-gray-500">Loading...</div>
+            <div className="p-4 text-center text-gray-500">در حال جستجو...</div>
           ) : suggestions.length > 0 ? (
             <ul className="py-2">
               {suggestions.map((product) => (
                 <li 
                   key={product.id} 
-                  className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center gap-3"
+                  className="px-4 py-3 hover:bg-gray-100 cursor-pointer flex items-center gap-3 border-b border-gray-100 last:border-b-0"
                   onClick={() => handleSuggestionClick(product)}
                 >
-                  <div className="w-10 h-10 relative">
+                  <div className="w-12 h-12 relative">
                     <Image 
                       src={product.image} 
                       alt={product.name} 
@@ -131,10 +130,10 @@ export default function SearchBox() {
                       className="object-contain"
                     />
                   </div>
-                  <div>
-                    <div className="font-medium">{product.name}</div>
-                    <div className="text-sm text-gray-500">{product.brand} • {product.memory}</div>
-                    <div className="text-sm font-medium">
+                  <div className="flex-1">
+                    <div className="font-medium text-right">{product.name}</div>
+                    <div className="text-sm text-gray-500 text-right">{product.brand} • {product.memory}</div>
+                    <div className="text-sm font-medium text-right">
                       {product.price.toLocaleString()} تومان
                       {product.oldPrice && (
                         <span className="text-xs text-gray-500 line-through mr-2">
@@ -147,7 +146,7 @@ export default function SearchBox() {
               ))}
             </ul>
           ) : (
-            <div className="p-4 text-center text-gray-500">No products found</div>
+            <div className="p-4 text-center text-gray-500">محصولی یافت نشد</div>
           )}
         </div>
       )}
